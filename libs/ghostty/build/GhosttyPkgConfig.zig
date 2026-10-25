@@ -27,7 +27,7 @@ pub fn init(b: *Build, opts: Options) !GhosttyPkgConfig {
     const generator = b.addExecutable(.{
         .name = "pkg-config-generator",
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/extra/pkg-config.zig"),
+            .root_source_file = b.path("libs/ghostty/extra/pkg-config.zig"),
             .target = b.graph.host,
             .optimize = .debug,
         }),

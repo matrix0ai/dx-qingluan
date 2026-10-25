@@ -14,7 +14,7 @@ pub fn init(b: *std.Build, cfg: *const Config, deps: *const SharedDeps) !Ghostty
     const exe: *std.Build.Step.Compile = b.addExecutable(.{
         .name = "ghostty",
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/main.zig"),
+            .root_source_file = b.path("libs/ghostty/main.zig"),
             .target = cfg.target,
             .optimize = cfg.optimize,
             .strip = cfg.strip,

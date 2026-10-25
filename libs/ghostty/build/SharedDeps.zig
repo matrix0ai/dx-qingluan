@@ -64,7 +64,7 @@ pub const LazyPathList = std.ArrayList(std.Build.LazyPath);
 pub fn init(b: *std.Build, cfg: *const Config) !SharedDeps {
     const uucode_tables = blk: {
         const uucode = b.dependency("uucode", .{
-            .build_config_path = b.path("src/build/uucode_config.zig"),
+            .build_config_path = b.path("libs/ghostty/build/uucode_config.zig"),
         });
 
         break :blk uucode.namedLazyPath("tables.zig");
@@ -74,7 +74,7 @@ pub fn init(b: *std.Build, cfg: *const Config) !SharedDeps {
     // import. See the doc comment on `uucode_mod`.
     const uucode_mod = b.dependency("uucode", .{
         .tables_path = uucode_tables,
-        .build_config_path = b.path("src/build/uucode_config.zig"),
+        .build_config_path = b.path("libs/ghostty/build/uucode_config.zig"),
     }).module("uucode");
 
     // Re-export the uucode module so that Zig programs that embed libgtostty-vt
@@ -139,7 +139,7 @@ fn initTarget(
     self.metallib = .create(b, .{
         .name = "Ghostty",
         .target = target,
-        .sources = &.{b.path("src/renderer/shaders/shaders.metal")},
+        .sources = &.{b.path("libs/ghostty/renderer/shaders/shaders.metal")},
     });
 
     // Change our config
@@ -193,7 +193,7 @@ pub fn add(
 
     // C imports for locale constants and functions
     try translate_c.addImportToModule(b, "locale-c", step.root_module, .{
-        .source = .{ .file = b.path("src/os/locale.c") },
+        .source = .{ .file = b.path("libs/ghostty/os/locale.c") },
         .target = target,
         .optimize = optimize,
     });
@@ -205,7 +205,7 @@ pub fn add(
         .macos,
         => {
             try translate_c.addImportToModule(b, "pty-c", step.root_module, .{
-                .source = .{ .file = b.path("src/pty.c") },
+                .source = .{ .file = b.path("libs/ghostty/pty.c") },
                 .target = target,
                 .optimize = optimize,
             });
@@ -465,24 +465,24 @@ pub fn add(
         } } },
         .target = target,
         .optimize = optimize,
-        .include_paths = &.{b.path("src/stb")},
+        .include_paths = &.{b.path("libs/ghostty/stb")},
     });
 
     // C files
     step.root_module.link_libc = true;
-    step.root_module.addIncludePath(b.path("src/stb"));
+    step.root_module.addIncludePath(b.path("libs/ghostty/stb"));
     // Disable ubsan for MSVC: Zig's ubsan runtime cannot be bundled
     // on Windows (LNK4229), leaving __ubsan_handle_* unresolved when
     // the static archive is consumed by an external linker.
     step.root_module.addCSourceFiles(.{
-        .files = &.{"src/stb/stb.c"},
+        .files = &.{"libs/ghostty/stb/stb.c"},
         .flags = if (step.rootModuleTarget().abi == .msvc)
             &.{ "-fno-sanitize=undefined", "-fno-sanitize-trap=undefined" }
         else
             &.{},
     });
     if (step.rootModuleTarget().os.tag == .linux) {
-        step.root_module.addIncludePath(b.path("src/apprt/gtk"));
+        step.root_module.addIncludePath(b.path("libs/ghostty/apprt/gtk"));
     }
 
     // libcpp is required for various dependencies. On MSVC, we must
@@ -777,7 +777,7 @@ fn addGtk(
             .{},
         );
         const zig_wayland_import_ = b.lazyImport(
-            @import("../../build.zig"),
+            @import("../../../build.zig"),
             "zig_wayland",
         );
         const zig_wayland_dep_ = b.lazyDependency("zig_wayland", .{});
@@ -808,7 +808,7 @@ fn addGtk(
         scanner.addSystemProtocol("staging/xdg-activation/xdg-activation-v1.xml");
         scanner.addSystemProtocol("staging/ext-background-effect/ext-background-effect-v1.xml");
         scanner.addCustomProtocol(
-            b.path("src/apprt/gtk/winproto/wayland/protocols/vicinae-hotkey-v1.xml"),
+            b.path("libs/ghostty/apprt/gtk/winproto/wayland/protocols/vicinae-hotkey-v1.xml"),
         );
 
         scanner.generate("wl_compositor", 1);
@@ -920,7 +920,7 @@ pub fn addSimd(
     }
 
     // SIMD C++ files
-    m.addIncludePath(b.path("src"));
+    m.addIncludePath(b.path("libs/ghostty"));
     {
         // From hwy/detect_targets.h
         const HWY_AVX10_2: c_int = 1 << 3;
@@ -983,10 +983,10 @@ pub fn addSimd(
 
         m.addCSourceFiles(.{
             .files = &.{
-                "src/simd/base64.cpp",
-                "src/simd/codepoint_width.cpp",
-                "src/simd/index_of.cpp",
-                "src/simd/vt.cpp",
+                "libs/ghostty/simd/base64.cpp",
+                "libs/ghostty/simd/codepoint_width.cpp",
+                "libs/ghostty/simd/index_of.cpp",
+                "libs/ghostty/simd/vt.cpp",
             },
             .flags = flags.items,
         });
@@ -1038,7 +1038,7 @@ fn gtkDistResourcesUncached(b: *std.Build) GtkResources {
         const check_exe = b.addExecutable(.{
             .name = "gtk_blueprint_check",
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/apprt/gtk/build/blueprint.zig"),
+                .root_source_file = b.path("libs/ghostty/apprt/gtk/build/blueprint.zig"),
                 .target = b.graph.host,
                 .link_libc = true,
             }),
@@ -1119,7 +1119,7 @@ fn gtkDistResourcesUncached(b: *std.Build) GtkResources {
         const xml_exe = b.addExecutable(.{
             .name = "generate_gresource_xml",
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/apprt/gtk/build/gresource.zig"),
+                .root_source_file = b.path("libs/ghostty/apprt/gtk/build/gresource.zig"),
                 .target = b.graph.host,
             }),
         });
@@ -1162,7 +1162,7 @@ fn gtkDistResourcesUncached(b: *std.Build) GtkResources {
 
     return .{
         .resources_c = .{
-            .dist = "src/apprt/gtk/ghostty_resources.c",
+            .dist = "libs/ghostty/apprt/gtk/ghostty_resources.c",
             .generated = generate(
                 b,
                 ui_dir,
@@ -1172,7 +1172,7 @@ fn gtkDistResourcesUncached(b: *std.Build) GtkResources {
             ),
         },
         .resources_h = .{
-            .dist = "src/apprt/gtk/ghostty_resources.h",
+            .dist = "libs/ghostty/apprt/gtk/ghostty_resources.h",
             .generated = generate(
                 b,
                 ui_dir,

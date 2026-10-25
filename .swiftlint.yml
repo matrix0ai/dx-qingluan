@@ -1,2 +1,2 @@
-included: macos
-child_config: macos/.swiftlint.yml
+included: apps/desktop
+child_config: apps/desktop/.swiftlint.yml

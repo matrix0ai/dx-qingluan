@@ -44,7 +44,7 @@ pub fn create(
 
     const run = b.addSystemCommand(&.{"/bin/sh"});
     run.setName("libsystem override");
-    run.addFileArg(b.path("src/build/libsystem_override.sh"));
+    run.addFileArg(b.path("libs/ghostty/build/libsystem_override.sh"));
     run.addFileArg(input);
     const output = run.addOutputFileArg(out_name);
     return .{ .step = &run.step, .output = output };

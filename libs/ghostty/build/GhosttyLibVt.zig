@@ -73,7 +73,7 @@ pub fn initWasm(
         const patcher = b.addExecutable(.{
             .name = "wasm_patch_growable_table",
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/build/wasm_patch_growable_table.zig"),
+                .root_source_file = b.path("libs/ghostty/build/wasm_patch_growable_table.zig"),
                 .target = b.graph.host,
             }),
         });
@@ -232,7 +232,7 @@ fn initLib(
         .version = zig.version,
     });
     lib.installHeadersDirectory(
-        b.path("include/ghostty"),
+        b.path("libs/c/ghostty"),
         "ghostty",
         .{ .include_extensions = &.{".h"} },
     );
@@ -473,7 +473,7 @@ fn initLibApple(
     // The native link is a Run step rather than a Compile step, so install the
     // public headers explicitly instead of relying on addInstallArtifact.
     const headers_install = b.addInstallDirectory(.{
-        .source_dir = b.path("include/ghostty"),
+        .source_dir = b.path("libs/c/ghostty"),
         .install_dir = .header,
         .install_subdir = "ghostty",
         .include_extensions = &.{".h"},
@@ -568,7 +568,7 @@ pub fn xcframework(
     // for GhosttyKit (the macOS app library).
     const wf = b.addWriteFiles();
     _ = wf.addCopyDirectory(
-        b.path("include/ghostty"),
+        b.path("libs/c/ghostty"),
         "ghostty",
         .{ .include_extensions = &.{".h"} },
     );

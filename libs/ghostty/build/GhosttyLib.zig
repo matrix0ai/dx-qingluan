@@ -26,7 +26,7 @@ pub fn initStatic(
     const lib = b.addLibrary(.{
         .name = "ghostty",
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/main_c.zig"),
+            .root_source_file = b.path("libs/ghostty/main_c.zig"),
             .target = deps.config.target,
             .optimize = deps.config.optimize,
             .strip = deps.config.strip,
@@ -97,7 +97,7 @@ pub fn initShared(
         .name = "ghostty",
         .linkage = .dynamic,
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/main_c.zig"),
+            .root_source_file = b.path("libs/ghostty/main_c.zig"),
             .target = deps.config.target,
             .optimize = deps.config.optimize,
             .strip = deps.config.strip,
@@ -235,7 +235,7 @@ pub fn install(self: *const GhosttyLib, name: []const u8) void {
 pub fn installHeader(self: *const GhosttyLib) void {
     const b = self.step.owner;
     const header_install = b.addInstallHeaderFile(
-        b.path("include/ghostty.h"),
+        b.path("libs/c/ghostty.h"),
         "ghostty.h",
     );
     b.getInstallStep().dependOn(&header_install.step);

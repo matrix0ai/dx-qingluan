@@ -79,7 +79,7 @@ fn createUpdateStep(b: *std.Build) !*std.Build.Step {
 
     inline for (gresource.blueprints) |blp| {
         const path = std.fmt.comptimePrint(
-            "src/apprt/gtk/ui/{[major]}.{[minor]}/{[name]s}.blp",
+            "libs/ghostty/apprt/gtk/ui/{[major]}.{[minor]}/{[name]s}.blp",
             blp,
         );
         // The arguments to xgettext must be the relative path in the build root
@@ -105,7 +105,7 @@ fn createUpdateStep(b: *std.Build) !*std.Build.Step {
 
         var gtk_dir = try b.root.openDir(
             b.graph.io,
-            "src/apprt/gtk",
+            "libs/ghostty/apprt/gtk",
             .{ .iterate = true },
         );
         defer gtk_dir.close(b.graph.io);
@@ -138,7 +138,7 @@ fn createUpdateStep(b: *std.Build) !*std.Build.Step {
         );
 
         for (gtk_files.items) |item| {
-            const path = b.pathJoin(&.{ "src/apprt/gtk", item });
+            const path = b.pathJoin(&.{ "libs/ghostty/apprt/gtk", item });
             // The arguments to xgettext must be the relative path in the build root
             // or the resulting files will contain the absolute path. This will
             // cause a lot of churn because not everyone has the Ghostty code
@@ -150,7 +150,7 @@ fn createUpdateStep(b: *std.Build) !*std.Build.Step {
     }
 
     // For localization of command palette
-    const command_palette_path = "src/input/command.zig";
+    const command_palette_path = "libs/ghostty/input/command.zig";
     xgettext.addArg(command_palette_path);
     xgettext.addFileInput(b.path(command_palette_path));
 

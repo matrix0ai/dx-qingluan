@@ -27,7 +27,7 @@ pub fn init(
         const generate_markdown = b.addExecutable(.{
             .name = "mdgen_" ++ manpage.name ++ "_" ++ manpage.section,
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/main.zig"),
+                .root_source_file = b.path("libs/ghostty/main.zig"),
                 .target = b.graph.host,
                 .strip = false,
                 .omit_frame_pointer = false,

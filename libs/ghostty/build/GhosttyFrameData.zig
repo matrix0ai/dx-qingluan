@@ -44,7 +44,7 @@ pub fn distResources(b: *std.Build) struct {
         }),
     });
     exe.root_module.addCSourceFile(.{
-        .file = b.path("src/build/framegen/main.c"),
+        .file = b.path("libs/ghostty/build/framegen/main.c"),
         .flags = &.{},
     });
 
@@ -63,12 +63,12 @@ pub fn distResources(b: *std.Build) struct {
     }
 
     const run = b.addRunArtifact(exe);
-    run.addDirectoryArg(b.path("src/build/framegen/frames"));
+    run.addDirectoryArg(b.path("libs/ghostty/build/framegen/frames"));
     const compressed_file = run.addOutputFileArg("framedata.compressed");
 
     return .{
         .framedata = .{
-            .dist = "src/build/framegen/framedata.compressed",
+            .dist = "libs/ghostty/build/framegen/framedata.compressed",
             .generated = compressed_file,
         },
     };

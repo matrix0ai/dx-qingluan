@@ -26,9 +26,9 @@ stdenv.mkDerivation (finalAttrs: {
     root = ../.;
     fileset = lib.fileset.intersection (lib.fileset.fromSource (lib.sources.cleanSource ../.)) (
       lib.fileset.unions [
-        ../include
-        ../pkg
-        ../src
+        ../libs/c
+        ../packages
+        ../libs/ghostty
         ../vendor
         ../build.zig
         ../build.zig.zon
@@ -213,7 +213,7 @@ stdenv.mkDerivation (finalAttrs: {
     build-example-c-vt-build-info = stdenv.mkDerivation {
       name = "build-example-c-vt-build-info";
       version = finalAttrs.version;
-      src = ../example/c-vt-build-info/src;
+      src = ../examples/c-vt-build-info/src;
       doInstallCheck = true;
       nativeBuildInputs = [pkg-config];
       nativeInstallCheckInputs = [versionCheckHook];

@@ -14,7 +14,7 @@ pub fn init(b: *std.Build, uucode_tables: std.Build.LazyPath) !UnicodeTables {
     const props_exe = b.addExecutable(.{
         .name = "props-unigen",
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/unicode/props_uucode.zig"),
+            .root_source_file = b.path("libs/ghostty/unicode/props_uucode.zig"),
             .target = b.graph.host,
             .strip = false,
             .omit_frame_pointer = false,
@@ -28,7 +28,7 @@ pub fn init(b: *std.Build, uucode_tables: std.Build.LazyPath) !UnicodeTables {
     const symbols_exe = b.addExecutable(.{
         .name = "symbols-unigen",
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/unicode/symbols_uucode.zig"),
+            .root_source_file = b.path("libs/ghostty/unicode/symbols_uucode.zig"),
             .target = b.graph.host,
             .strip = false,
             .omit_frame_pointer = false,
@@ -42,7 +42,7 @@ pub fn init(b: *std.Build, uucode_tables: std.Build.LazyPath) !UnicodeTables {
     if (b.lazyDependency("uucode", .{
         .target = b.graph.host,
         .tables_path = uucode_tables,
-        .build_config_path = b.path("src/build/uucode_config.zig"),
+        .build_config_path = b.path("libs/ghostty/build/uucode_config.zig"),
     })) |dep| {
         inline for (&.{ props_exe, symbols_exe }) |exe| {
             exe.root_module.addImport("uucode", dep.module("uucode"));

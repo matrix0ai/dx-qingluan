@@ -44,10 +44,10 @@ in
         lib.fileset.unions [
           ../dist/linux
           ../images
-          ../include
+          ../libs/c
           ../po
-          ../pkg
-          ../src
+          ../packages
+          ../libs/ghostty
           ../vendor
           ../build.zig
           ../build.zig.zon

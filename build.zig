@@ -1,7 +1,7 @@
 const std = @import("std");
 const assert = std.debug.assert;
 const builtin = @import("builtin");
-const buildpkg = @import("src/build/main.zig");
+const buildpkg = @import("libs/ghostty/build/main.zig");
 const translate_c = @import("translate_c");
 
 /// App version from build.zig.zon.
@@ -20,7 +20,7 @@ comptime {
 pub fn build(b: *std.Build) !void {
     // This defines all the available build options (e.g. `-D`). If you
     // want to know what options are available, you can run `--help` or
-    // you can read `src/build/Config.zig`.
+    // you can read `libs/ghostty/build/Config.zig`.
 
     // If we have a VERSION file (present in source tarballs) then we
     // use that as the version source of truth. Otherwise we fall back
@@ -146,8 +146,8 @@ pub fn build(b: *std.Build) !void {
         shared.install(b.getInstallStep());
 
         const type_schema_test = b.addSystemCommand(&.{"python3"});
-        type_schema_test.addFileArg(b.path("src/terminal/c/types-schema-verify.py"));
-        type_schema_test.addFileArg(b.path("src/terminal/c/types.schema.json"));
+        type_schema_test.addFileArg(b.path("libs/ghostty/terminal/c/types-schema-verify.py"));
+        type_schema_test.addFileArg(b.path("libs/ghostty/terminal/c/types.schema.json"));
         type_schema_test.addFileArg(shared.output);
         test_lib_vt_schema_step.dependOn(&type_schema_test.step);
     } else {
@@ -178,7 +178,7 @@ pub fn build(b: *std.Build) !void {
 
         if (native_freestanding) {
             b.getInstallStep().dependOn(&b.addInstallDirectory(.{
-                .source_dir = b.path("include/ghostty"),
+                .source_dir = b.path("libs/c/ghostty"),
                 .install_dir = .header,
                 .install_subdir = "ghostty",
                 .include_extensions = &.{".h"},
@@ -380,7 +380,7 @@ pub fn build(b: *std.Build) !void {
             .name = "ghostty-test",
             .filters = test_filters,
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/main.zig"),
+                .root_source_file = b.path("libs/ghostty/main.zig"),
                 .target = config.baselineTarget(b.graph.io),
                 .optimize = .debug,
                 .strip = false,
@@ -442,6 +442,6 @@ fn addGhosttyH(
         } } },
         .target = target,
         .optimize = optimize,
-        .system_include_paths = &.{b.path("include")},
+        .system_include_paths = &.{b.path("libs/c")},
     }) catch unreachable;
 }

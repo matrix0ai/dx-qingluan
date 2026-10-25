@@ -13,7 +13,7 @@ pub fn init(b: *std.Build, cfg: *const Config) !HelpStrings {
     const exe = b.addExecutable(.{
         .name = "helpgen",
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/helpgen.zig"),
+            .root_source_file = b.path("libs/ghostty/helpgen.zig"),
             .target = b.graph.host,
             .strip = false,
             .omit_frame_pointer = false,

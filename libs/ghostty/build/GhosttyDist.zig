@@ -184,7 +184,7 @@ pub fn init(b: *std.Build, cfg: *const Config) !GhosttyDist {
 const lib_vt_excludes = &[_][]const u8{
     // App and platform resources
     "images",
-    "macos",
+    "apps/desktop",
     "dist/doxygen",
     "dist/linux",
     "dist/macos",
@@ -192,17 +192,17 @@ const lib_vt_excludes = &[_][]const u8{
     "flatpak",
     "snap",
     "po",
-    "example",
+    "examples",
 
     // Test corpus (lib-vt tests use embedded testdata within src/terminal/)
-    "test",
+    "tests",
 
     // Large binary assets
-    "src/font/res",
-    "src/crash/testdata",
-    "pkg/wuffs/src/too_big.jpg",
-    "pkg/wuffs/src/too_big.png",
-    "pkg/breakpad/vendor",
+    "libs/ghostty/font/res",
+    "libs/ghostty/crash/testdata",
+    "packages/wuffs/src/too_big.jpg",
+    "packages/wuffs/src/too_big.png",
+    "packages/breakpad/vendor",
 
     // Vendored libraries not used by lib-vt
     "vendor",

@@ -7,7 +7,7 @@
     .dependencies = .{
         // Our higher-level C translation helper (this also helps ensure we
         // only need to maintain one external dependency point)
-        .translate_c = .{ .path = "./pkg/translate-c" },
+        .translate_c = .{ .path = "./packages/translate-c" },
 
         // Zig libs
         .libxev = .{
@@ -66,25 +66,25 @@
         },
 
         // C libs
-        .dcimgui = .{ .path = "./pkg/dcimgui", .lazy = true },
-        .fontconfig = .{ .path = "./pkg/fontconfig", .lazy = true },
-        .freetype = .{ .path = "./pkg/freetype", .lazy = true },
-        .gtk4_layer_shell = .{ .path = "./pkg/gtk4-layer-shell", .lazy = true },
-        .harfbuzz = .{ .path = "./pkg/harfbuzz", .lazy = true },
-        .highway = .{ .path = "./pkg/highway", .lazy = true },
-        .libintl = .{ .path = "./pkg/libintl", .lazy = true },
-        .libpng = .{ .path = "./pkg/libpng", .lazy = true },
-        .macos = .{ .path = "./pkg/macos", .lazy = true },
-        .oniguruma = .{ .path = "./pkg/oniguruma", .lazy = true },
-        .opengl = .{ .path = "./pkg/opengl", .lazy = true },
-        .sentry = .{ .path = "./pkg/sentry", .lazy = true },
-        .simdutf = .{ .path = "./pkg/simdutf", .lazy = true },
-        .wuffs = .{ .path = "./pkg/wuffs", .lazy = true },
-        .zlib = .{ .path = "./pkg/zlib", .lazy = true },
+        .dcimgui = .{ .path = "./packages/dcimgui", .lazy = true },
+        .fontconfig = .{ .path = "./packages/fontconfig", .lazy = true },
+        .freetype = .{ .path = "./packages/freetype", .lazy = true },
+        .gtk4_layer_shell = .{ .path = "./packages/gtk4-layer-shell", .lazy = true },
+        .harfbuzz = .{ .path = "./packages/harfbuzz", .lazy = true },
+        .highway = .{ .path = "./packages/highway", .lazy = true },
+        .libintl = .{ .path = "./packages/libintl", .lazy = true },
+        .libpng = .{ .path = "./packages/libpng", .lazy = true },
+        .macos = .{ .path = "./packages/macos", .lazy = true },
+        .oniguruma = .{ .path = "./packages/oniguruma", .lazy = true },
+        .opengl = .{ .path = "./packages/opengl", .lazy = true },
+        .sentry = .{ .path = "./packages/sentry", .lazy = true },
+        .simdutf = .{ .path = "./packages/simdutf", .lazy = true },
+        .wuffs = .{ .path = "./packages/wuffs", .lazy = true },
+        .zlib = .{ .path = "./packages/zlib", .lazy = true },
 
         // Shader translation
-        .glslang = .{ .path = "./pkg/glslang", .lazy = true },
-        .spirv_cross = .{ .path = "./pkg/spirv-cross", .lazy = true },
+        .glslang = .{ .path = "./packages/glslang", .lazy = true },
+        .spirv_cross = .{ .path = "./packages/spirv-cross", .lazy = true },
 
         // Wayland
         .wayland = .{
@@ -116,8 +116,8 @@
         },
 
         // Other
-        .apple_sdk = .{ .path = "./pkg/apple-sdk" },
-        .android_ndk = .{ .path = "./pkg/android-ndk" },
+        .apple_sdk = .{ .path = "./packages/apple-sdk" },
+        .android_ndk = .{ .path = "./packages/android-ndk" },
         .iterm2_themes = .{
             .url = "https://deps.files.ghostty.org/ghostty-themes-release-20261019-151001-86a776d.tgz",
             .hash = "N-V-__8AAJ3vBQAq1fLMh5J8uWLkeDLS6WAdR2x5KcrmEyz6",

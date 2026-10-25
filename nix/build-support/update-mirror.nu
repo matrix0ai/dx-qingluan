@@ -3,7 +3,7 @@
 # This script downloads external dependencies from build.zig.zon.json that
 # are not already mirrored at deps.files.ghostty.org, saves them to a local
 # directory, and updates the build.zig.zon files (the root one as well as
-# every pkg/*/build.zig.zon) to point to the new mirror URLs.
+# every packages/*/build.zig.zon) to point to the new mirror URLs.
 #
 # HTTP files are downloaded unmodified. Git dependencies use Zig's normalized
 # cache archive so their content hashes match the originals.
@@ -61,7 +61,7 @@ def main [
   let output_dir = $output
 
   # All build.zig.zon files that may reference external URLs: the root
-  # one plus every package under pkg/. build.zig.zon.json is generated
+  # one plus every package under packages/. build.zig.zon.json is generated
   # from the full dependency tree so it covers all of these.
   let zon_files = (
     [($root_dir | path join "build.zig.zon")]

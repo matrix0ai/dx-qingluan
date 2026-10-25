@@ -18,7 +18,7 @@ pub fn init(
         const webgen_config = b.addExecutable(.{
             .name = "webgen_config",
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/main.zig"),
+                .root_source_file = b.path("libs/ghostty/main.zig"),
                 .target = b.graph.host,
                 .strip = false,
                 .omit_frame_pointer = false,
@@ -52,7 +52,7 @@ pub fn init(
         const webgen_actions = b.addExecutable(.{
             .name = "webgen_actions",
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/main.zig"),
+                .root_source_file = b.path("libs/ghostty/main.zig"),
                 .target = b.graph.host,
             }),
         });
@@ -83,7 +83,7 @@ pub fn init(
         const webgen_commands = b.addExecutable(.{
             .name = "webgen_commands",
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/main.zig"),
+                .root_source_file = b.path("libs/ghostty/main.zig"),
                 .target = b.graph.host,
             }),
         });

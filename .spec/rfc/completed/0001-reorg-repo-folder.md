@@ -1,6 +1,6 @@
 # RFC 0001: Reorganize Repository Folder Structure
 
-**Status:** Approved
+**Status:** Implemented
 
 ## Summary
 

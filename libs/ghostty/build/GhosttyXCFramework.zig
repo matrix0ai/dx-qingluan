@@ -30,15 +30,15 @@ pub fn init(
     // "umbrella header does not include header" warnings from Clang's
     // module system.
     const wf = b.addWriteFiles();
-    _ = wf.addCopyFile(b.path("include/ghostty.h"), "ghostty.h");
-    _ = wf.addCopyFile(b.path("include/module.modulemap"), "module.modulemap");
+    _ = wf.addCopyFile(b.path("libs/c/ghostty.h"), "ghostty.h");
+    _ = wf.addCopyFile(b.path("libs/c/module.modulemap"), "module.modulemap");
     const headers = wf.getDirectory();
 
     // The xcframework wraps our ghostty library so that we can link
     // it to the final app built with Swift.
     const xcframework = XCFrameworkStep.create(b, .{
         .name = "GhosttyKit",
-        .out_path = .{ .source_tree = "macos/GhosttyKit.xcframework" },
+        .out_path = .{ .source_tree = "apps/desktop/GhosttyKit.xcframework" },
         .libraries = switch (target) {
             .universal => &.{
                 .{

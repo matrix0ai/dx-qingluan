@@ -16,7 +16,7 @@ pub fn init(b: *std.Build, cfg: *const Config, deps: *const SharedDeps) !Ghostty
     const build_data_exe = b.addExecutable(.{
         .name = "ghostty-build-data",
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/main_build_data.zig"),
+            .root_source_file = b.path("libs/ghostty/main_build_data.zig"),
             .target = b.graph.host,
             .strip = false,
             .omit_frame_pointer = false,
@@ -98,7 +98,7 @@ pub fn init(b: *std.Build, cfg: *const Config, deps: *const SharedDeps) !Ghostty
     // Shell-integration
     {
         const install_step = b.addInstallDirectory(.{
-            .source_dir = b.path("src/shell-integration"),
+            .source_dir = b.path("libs/ghostty/shell-integration"),
             .install_dir = .{ .custom = "share" },
             .install_subdir = b.pathJoin(&.{ "ghostty", "shell-integration" }),
             .exclude_extensions = &.{".md"},

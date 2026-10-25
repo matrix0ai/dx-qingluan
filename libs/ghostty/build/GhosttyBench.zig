@@ -18,7 +18,7 @@ pub fn init(
         const exe = b.addExecutable(.{
             .name = "ghostty-gen",
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/main_gen.zig"),
+                .root_source_file = b.path("libs/ghostty/main_gen.zig"),
                 .target = deps.config.target,
                 // We always want our datagen to be fast because it
                 // takes awhile to run.
@@ -35,7 +35,7 @@ pub fn init(
         const exe = b.addExecutable(.{
             .name = "ghostty-bench",
             .root_module = b.createModule(.{
-                .root_source_file = b.path("src/main_bench.zig"),
+                .root_source_file = b.path("libs/ghostty/main_bench.zig"),
                 .target = deps.config.target,
                 // We always want our benchmarks to be in release mode.
                 .optimize = .fast,

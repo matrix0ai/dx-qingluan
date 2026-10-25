@@ -113,7 +113,7 @@ fn initVt(
     try cfg.addOptions(general_options);
 
     const options: std.Build.Module.CreateOptions = .{
-        .root_source_file = b.path("src/lib_vt.zig"),
+        .root_source_file = b.path("libs/ghostty/lib_vt.zig"),
         .target = cfg.target,
         .optimize = cfg.optimize,
 
